@@ -6,10 +6,10 @@ export const state = () => ({
       country: 'canada',
       category: 'budget',
       content:
-        'Fundamental to a sound financial footing is knowing where your money is going.  Budgeting helps you see your sources of income less your expenses.',
+        'Fundamental to a sound financial footing is knowing where your money is going.  Budgeting helps you see your sources of income less your expenses.  Before you take any further action with existing money, ensure you take the time to create a budget.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'pay-rent-mortgage'
         }
       ]
@@ -19,10 +19,10 @@ export const state = () => ({
       title: 'Pay Rent / Mortgage',
       country: 'canada',
       category: 'budget',
-      content: 'If required, include your renters / homeowners insurance.',
+      content: 'Make sure you have a place to stay.  This comes before any other needs.  If required, include your renters / homeowners insurance.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'buy-food-groceries'
         }
       ]
@@ -36,7 +36,7 @@ export const state = () => ({
         'Depending on the severity of your situation and needs, you may wish to prioritize utilities before this step.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'pay-essential-items'
         }
       ]
@@ -49,7 +49,7 @@ export const state = () => ({
       content: 'Power, water, heat, toiletries, etc.  Things you need to live.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'pay-income-earning-expenses'
         }
       ]
@@ -63,7 +63,7 @@ export const state = () => ({
         'Make sure you can continue to make money.  This includes transportation expenses, internet / phone if required.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'pay-taxes'
         }
       ]
@@ -76,7 +76,7 @@ export const state = () => ({
       content: 'The government is your most powerful creditor, pay them first.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'make-minimum-payments'
         }
       ]
@@ -89,7 +89,7 @@ export const state = () => ({
       content: 'Keep the rest of your creditors happy.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'small-emergency-fund'
         }
       ]
@@ -103,7 +103,7 @@ export const state = () => ({
         "Put $1,000 or one months worth of expenses aside, whichever is greater.  Use a chequing or a savings account to keep this accessible.",
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'non-essential-bills'
         }
       ]
@@ -117,7 +117,7 @@ export const state = () => ({
         "Pay off any cable, internet, cellphone etc bills.",
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'employer-match'
         }
       ]
@@ -147,7 +147,7 @@ export const state = () => ({
       content: 'Contribute the amount needed to get the full employer match, but nothing above that amount.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'high-interest-debt'
         }
       ]
@@ -177,7 +177,7 @@ export const state = () => ({
       content: 'Evaluate the merits of the "Avalanche" and "Snowball" methods and their advantages in your personal financial / psychological situation and apply accordingly to pay off these debts.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'increase-emergency-fund'
         }
       ]
@@ -190,7 +190,7 @@ export const state = () => ({
       content: 'Increase your emergency fund to 3-6 months living expenses.  Use a savings or a chequings account.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'moderate-interest-debt'
         }
       ]
@@ -220,7 +220,7 @@ export const state = () => ({
       content: 'Evaluate the merits of the "Avalanche" and "Snowball" methods and their advantages in your personal financial / psychological situation and apply accordingly to pay off these debts.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'retirement-savings'
         }
       ]
@@ -233,7 +233,7 @@ export const state = () => ({
       content: 'Evaluate the merits of a TFSA vs RRSP in the context of your personal financial situation and contribute up to 15% of your pre-tax income for retirement.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'expected-large-purchases'
         }
       ]
@@ -263,7 +263,7 @@ export const state = () => ({
       content: 'Save the money needed for those large purchases.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'retirement-budget'
         }
       ]
@@ -293,7 +293,7 @@ export const state = () => ({
       content: 'Increase your annual contributions to available TFSAs and RRSPs, prioritizing the accounts to which best suit your personal financial situation.  If maxed, consider taxable investments.',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'childrens-education'
         }
       ]
@@ -323,7 +323,7 @@ export const state = () => ({
       content: 'Evaluate available savings / investment options, such as an RESP, and contribute accordingly',
       next: [
         {
-          prompt: 'Next',
+          prompt: 'Done',
           id: 'personal-goals'
         }
       ]
