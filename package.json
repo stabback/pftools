@@ -16,7 +16,9 @@
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/google-tag-manager": "^2.1.1",
     "cross-env": "^5.2.0",
+    "firebase": "^5.7.2",
     "nuxt": "^2.0.0",
+    "nuxt-fire": "^1.2.1",
     "vuetify": "^1.2.4"
   },
   "devDependencies": {

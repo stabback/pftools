@@ -35,16 +35,40 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/vuetify'
+    '@/plugins/vuetify',
+    '@/plugins/nuxt-client-init'
   ],
 
   /*
   ** Nuxt.js modules
   */
   modules: [
-        ['@nuxtjs/google-analytics', {
+    ['@nuxtjs/google-analytics', {
       id: 'UA-131490787-1'
-    }]
+    }],
+    [
+      'nuxt-fire',
+      {
+        config: {
+          development: {
+            apiKey: "AIzaSyCyXMZSUYd9QgMEi_FWIs_APj4GbEDkbZ8",
+            authDomain: "stabback-pftools.firebaseapp.com",
+            databaseURL: "https://stabback-pftools.firebaseio.com",
+            projectId: "stabback-pftools",
+            storageBucket: "stabback-pftools.appspot.com",
+            messagingSenderId: "566846405350"
+          },
+          production: {
+            apiKey: "AIzaSyCyXMZSUYd9QgMEi_FWIs_APj4GbEDkbZ8",
+            authDomain: "stabback-pftools.firebaseapp.com",
+            databaseURL: "https://stabback-pftools.firebaseio.com",
+            projectId: "stabback-pftools",
+            storageBucket: "stabback-pftools.appspot.com",
+            messagingSenderId: "566846405350"
+          }
+        }
+      }
+    ]
   ],
 
   /*

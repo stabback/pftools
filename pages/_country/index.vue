@@ -18,7 +18,8 @@
       >Money Steps</v-btn>
       <v-btn href="mailto:pf@stabback.com">Contact me</v-btn>
       <v-btn href="https://reddit.com/r/personalfinancecanada">Read Subreddit</v-btn>
-
+      <v-btn @click="writeToRealtimeDb">Write</v-btn>
+      <v-btn @click="readFromRealtimeDb">Read</v-btn>
     </template>
 
     <v-layout 
@@ -43,7 +44,7 @@
           color="primary"
         >View Canada</v-btn>
         <v-btn href="mailto:pf@stabback.com">Contact me</v-btn>
-        <v-btn href="https://reddit.com/r/personalfinancecanada">Read Subreddit</v-btn>
+        <v-btn href="https://reddit.com/r/personalfinancecanada">Read Subreddittt</v-btn>
       </v-flex>
     </v-layout>
   </div>
@@ -57,6 +58,43 @@ export default {
 
     return {
       country
+    }
+  },
+
+  computed: {
+    countries () {
+      return this.$store.getters['countries/countries']
+    }
+  },
+
+  methods: {
+    async writeToRealtimeDb() {
+      // console.log(this.countries)
+      // const countryRef = this.$fireDb.ref('countries')
+      // try {
+      //   countryRef.set(this.countries.reduce((acc,country) => {
+      //     return {
+      //       ...acc,
+      //       [country.id]: country
+      //     }
+      //   }, {}))
+      // } catch (e) {
+      //   alert(e)
+      //   return
+      // }
+      // alert('Success.')
+    },
+    async readFromRealtimeDb() {
+      
+      this.$store.dispatch('countries/fetchCountries')
+      // const messageRef = this.$fireDb.ref('message')
+      // try {
+      //   const snapshot = await messageRef.once('value')
+      //   alert(snapshot.val().message)
+      // } catch (e) {
+      //   alert(e)
+      //   return
+      // }
     }
   }
 }
