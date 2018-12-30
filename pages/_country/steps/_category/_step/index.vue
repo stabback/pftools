@@ -73,8 +73,6 @@ import { getFileInfo, } from 'prettier';
 <script>
 export default {
   layout: 'step',
-  
-  middleware: ['verify-country', 'verify-category', 'verify-step'],
 
   transition: 'slide-left',
 

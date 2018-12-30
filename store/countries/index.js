@@ -8,6 +8,7 @@ export const actions = {
     try {
       const snapshot = await countriesRef.once('value')
       const countries = snapshot.val()
+      commit('saveCountries', Object.values(countries))
     } catch (e) {
       alert("Having some tech difficulties, try reloading")
       return
@@ -17,7 +18,6 @@ export const actions = {
 
 export const mutations = {
   saveCountries(s, payload) {
-    console.log("Saving countries", payload)
     s.countries = payload
   }
 }

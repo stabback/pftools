@@ -70,6 +70,9 @@ import HelpButton from '~/components/help-button'
 import { getMaxSteps } from '~/helpers'
 
 export default {
+
+  middleware: ['require-categories-steps', 'require-steps', 'verify-country', 'verify-category', 'verify-step'],
+  
   components: {
     StepsProgress, PfNav, PfFooter, HelpButton
   },

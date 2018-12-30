@@ -1,7 +1,7 @@
 export default function ({ route, store, error }) {
-  const country = store.getters['steps/categories/categoryById'](route.params.category)
+  const category = store.getters['steps/categories/categoryById'](route.params.category)
 
-  if (!country) {
+  if (!category) {
     return error({ statusCode: 404, message: 'Category not found' })
   }
 }

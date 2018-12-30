@@ -62,40 +62,9 @@ export default {
   },
 
   computed: {
-    countries () {
-      return this.$store.getters['countries/countries']
-    }
   },
 
   methods: {
-    async writeToRealtimeDb() {
-      // console.log(this.countries)
-      // const countryRef = this.$fireDb.ref('countries')
-      // try {
-      //   countryRef.set(this.countries.reduce((acc,country) => {
-      //     return {
-      //       ...acc,
-      //       [country.id]: country
-      //     }
-      //   }, {}))
-      // } catch (e) {
-      //   alert(e)
-      //   return
-      // }
-      // alert('Success.')
-    },
-    async readFromRealtimeDb() {
-      
-      this.$store.dispatch('countries/fetchCountries')
-      // const messageRef = this.$fireDb.ref('message')
-      // try {
-      //   const snapshot = await messageRef.once('value')
-      //   alert(snapshot.val().message)
-      // } catch (e) {
-      //   alert(e)
-      //   return
-      // }
-    }
   }
 }
 </script>

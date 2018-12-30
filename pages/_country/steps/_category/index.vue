@@ -98,7 +98,7 @@ import Phases from '~/components/steps/phases'
 
 export default {
   
-  middleware: ['verify-country',  'verify-category'],
+  middleware: ['require-categories', 'verify-country',  'verify-category'],
 
   components: {
     Phases
