@@ -100,7 +100,7 @@ export const state = () => ({
       country: 'canada',
       category: 'emergency',
       content:
-        "Put $1,000 or one months worth of expenses aside, whichever is greater.  Use a chequing or a savings account to keep this accessible.",
+        "Put $1,000 or one month's worth of expenses aside, whichever is greater.  Use a chequing or a savings account to keep this accessible.",
       next: [
         {
           prompt: 'Done',
@@ -174,7 +174,7 @@ export const state = () => ({
       title: 'Pay off all high interest debt',
       country: 'canada',
       category: 'high-interest-debt',
-      content: 'Evaluate the merits of the "Avalanche" and "Snowball" methods and their advantages in your personal financial / psychological situation and apply accordingly to pay off these debts.',
+      content: 'Evaluate the merits of the "Avalanche" - https://www.nerdwallet.com/blog/finance/what-is-a-debt-avalanche/ and "Snowball" - https://www.nerdwallet.com/blog/finance/what-is-a-debt-snowball/ methods and their advantages in your personal financial / psychological situation and apply accordingly to pay off these debts.',
       next: [
         {
           prompt: 'Done',
@@ -187,7 +187,7 @@ export const state = () => ({
       title: 'Increase your emergency fund',
       country: 'canada',
       category: 'high-interest-debt',
-      content: 'Increase your emergency fund to 3-6 months living expenses.  Use a savings or a chequings account.',
+      content: 'Increase your emergency fund to match 3-6 months of your living expenses.  Use a separate savings or chequings account to separate the emergency fund from the accounts you use on a daily basis.',
       next: [
         {
           prompt: 'Done',
@@ -217,7 +217,7 @@ export const state = () => ({
       title: 'Pay off your moderate interest debt in full.',
       country: 'canada',
       category: 'high-interest-debt',
-      content: 'Evaluate the merits of the "Avalanche" and "Snowball" methods and their advantages in your personal financial / psychological situation and apply accordingly to pay off these debts.',
+      content: 'Evaluate the merits of the "Avalanche" - https://www.nerdwallet.com/blog/finance/what-is-a-debt-avalanche/ and "Snowball" - https://www.nerdwallet.com/blog/finance/what-is-a-debt-snowball/ methods and their advantages in your personal financial / psychological situation and apply accordingly to pay off these debts.',
       next: [
         {
           prompt: 'Done',
@@ -243,7 +243,7 @@ export const state = () => ({
       title: 'Are you expecting any large required purchases soon?',
       country: 'canada',
       category: 'personal-investment',
-      content: 'These may include college, professional certifications, a car, etc.  This does not include non-required purchases like vacations.',
+      content: 'These may include college tuitions, professional certifications, a vehicle, etc.  However, it does not include purchases like vacations.',
       next: [
         {
           prompt: 'Yes',
@@ -273,7 +273,7 @@ export const state = () => ({
       title: 'Are you expecting any large required purchases soon?',
       country: 'canada',
       category: 'retirement',
-      content: 'If you are saving less than 15%, top up the amount you are saving to the full 15%.  Note that this includes employer matched funds.',
+      content: 'If you are saving less than 15%, top up the amount you are saving to the full 15%.  Note that this includes employer-matched funds.',
       next: [
         {
           prompt: 'Yes',
