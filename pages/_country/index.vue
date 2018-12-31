@@ -18,8 +18,6 @@
       >Money Steps</v-btn>
       <v-btn href="mailto:pf@stabback.com">Contact me</v-btn>
       <v-btn href="https://reddit.com/r/personalfinancecanada">Read Subreddit</v-btn>
-      <v-btn @click="writeToRealtimeDb">Write</v-btn>
-      <v-btn @click="readFromRealtimeDb">Read</v-btn>
     </template>
 
     <v-layout 
@@ -59,12 +57,6 @@ export default {
     return {
       country
     }
-  },
-
-  computed: {
-  },
-
-  methods: {
   }
 }
 </script>
