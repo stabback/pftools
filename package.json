@@ -11,7 +11,9 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
-    "deploy": "yarn build && aws s3 sync dist s3://pftools.xyz --delete"
+    "deploy": "yarn build && yarn sync-s3 && yarn invalidate",
+    "sync-s3": "aws s3 sync dist s3://pftools.xyz --delete",
+    "invalidate": "aws cloudfront create-invalidation --distribution-id EPTDREGYGV1PZ --paths /index.html"
   },
   "dependencies": {
     "@nuxtjs/google-analytics": "^2.0.2",
