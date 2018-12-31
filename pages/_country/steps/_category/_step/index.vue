@@ -86,6 +86,9 @@ export default {
     },
 
     options () {
+      if(!this.step.next) {
+        return []
+      }
       return this.step.next.map(option => ({
         ...option,
         step: this.$store.getters['steps/steps/stepById'](option.id)

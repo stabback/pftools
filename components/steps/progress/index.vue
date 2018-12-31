@@ -60,8 +60,13 @@ export default {
   },
 
   computed: {
+
     categories() {
-      return this.$store.getters['steps/categories/categories']
+      return this.thisCountry.categories.map(cat =>  this.$store.getters['steps/categories/categoryById'](cat))
+    },
+
+    thisCountry () {
+      return this.$store.getters['countries/countryById'](this.country)
     },
 
     category () {
