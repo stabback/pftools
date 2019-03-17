@@ -12,5 +12,6 @@ export const mutations = {
 }
 
 export const getters = {
-  ...commonStore.createGetters({ Decorator: Country })
+  ...commonStore.createGetters({ Decorator: Country }),
+  itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug),
 }

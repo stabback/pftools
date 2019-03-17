@@ -84,15 +84,15 @@ export default {
 
   computed: {
     country () {
-      return this.$store.getters['countries/itemById'](this.$route.params.country)
+      return this.$store.getters['countries/itemBySlug'](this.$route.params.country)
     },
 
     category () {
-      return this.$store.getters['steps/categories/itemBySlug'](this.$route.params.category)
+      return this.$store.getters['steps/categories/itemByUrl'](this.$route.params)
     },
 
     categories () {
-      return this.country.categories.map(category => this.$store.getters['steps/categories/itemById'](category))
+      return this.country.categories
     },
 
     firstStep () {
@@ -103,7 +103,7 @@ export default {
       return { 
         name: 'country-steps-category-step', 
         params: { 
-          country: this.country.id, 
+          country: this.country.slug, 
           category: this.category.slug, 
           step: this.firstStep.slug
         }

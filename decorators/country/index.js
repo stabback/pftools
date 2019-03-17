@@ -2,7 +2,6 @@ import Category from '../category'
 
 class Country {
   constructor (country, { categories }) {
-    console.log("Creating a country", country, categories)
     this._obj = country
     this._categories = categories
   }

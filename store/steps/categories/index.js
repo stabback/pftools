@@ -14,7 +14,10 @@ export const mutations = {
 export const getters = {
   ...commonStore.createGetters({ Decorator: Category }),
   itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug),
-  categoryByUrl: (_, getters) => ({ country, category }) => {
-    return false
+  itemByUrl: (_, getters, __, rootGetters) => ({ country, category }) => {
+    const thisCountry = rootGetters['countries/itemBySlug'](country)
+    const thisCategory = thisCountry.categories.find(cat => cat.slug === category)
+
+    return thisCategory
   }
 }

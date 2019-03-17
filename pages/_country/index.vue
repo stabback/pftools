@@ -53,7 +53,6 @@ export default {
   computed: {
     country () {
       const country = this.$store.getters['countries/itemById'](this.$route.params.country)
-      console.log(country)
       return country
     }
   }
