@@ -27,9 +27,8 @@ class Country {
       const category = this._categories.find(c => c.id === catId)
       if(!category) {
         throw new Error("Category [" + catId + "] not found for country [" + this.id + "]")
-      } else {
-        return new Category(category)
       }
+      return new Category(category)
     })
   }
 }
