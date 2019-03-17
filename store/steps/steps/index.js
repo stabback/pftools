@@ -13,16 +13,19 @@ export const mutations = {
 
 export const getters = {
   ...commonStore.createGetters({ Decorator: Step }),
-  itemsByCategory: (_, getters) => category => getters.itemsByKey('category', category),
+  itemsByCategory: (_, getters) => category => {
+    return getters.items.filter(item => item.category.id === category)
+  },
   itemsByCountry: (_, getters) => country => getters.itemsByKey('country', country),
   itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug),
-  stepByUrl: (_, getters) => ({ country, category, step }) => { 
-    return getters.items.find(thisStep => {
-      return (
-        thisStep.country === country && 
-        thisStep.category === category && 
-        thisStep.slug === step
-      )
-    })
+  itemByUrl: (_, g, __, rootGetters) => ({ country, category, step }) => {
+    const thisCountry = rootGetters['countries/itemBySlug'](country)
+    const thisCategory = thisCountry.categories.find(cat => cat.slug === category)
+    const thisStep = g.items.find(item => (
+      item.category.id === thisCategory.id &&
+      item.country.id === thisCountry.id &&
+      item.slug === step
+    ))
+    return thisStep
   }
 }

@@ -77,11 +77,11 @@ export default {
   computed: {
 
     step () {
-      return this.$store.getters['steps/steps/stepByUrl'](this.$route.params)
+      return this.$store.getters['steps/steps/itemByUrl'](this.$route.params)
     },
 
     category () {
-      return this.$store.getters['steps/categories/categoryByUrl'](this.$route.params)
+      return this.$store.getters['steps/categories/itemByUrl'](this.$route.params)
     },
 
     options () {
@@ -92,11 +92,9 @@ export default {
       let category
       return this.step.next.map(option => {
         step = this.$store.getters['steps/steps/itemById'](option.id)
-        category = this.$store.getters['steps/categories/itemById'](step.category)
         return {
           ...option,
-          step,
-          category
+          step
         }
       })
     }
@@ -108,8 +106,8 @@ export default {
       return { 
         name: 'country-steps-category-step', 
         params: { 
-          country: option.step.country,
-          category: option.category.slug,
+          country: option.step.country.slug,
+          category: option.step.category.slug,
           step: option.step.slug
         }
       }

@@ -2,7 +2,7 @@ import Country from '../country'
 import Category from '../category'
 
 class Step {
-  constructor(step, { categories, countries}) {
+  constructor(step, { categories, countries }) {
     this._obj = step
     this._categories = categories
     this._countries = countries
@@ -22,6 +22,10 @@ class Step {
 
   get title () {
     return this._obj.title
+  }
+
+  get next () {
+    return this._obj.next
   }
 
   get country () {

@@ -48,33 +48,24 @@ import { getMaxSteps } from '~/helpers'
 export default {
   props: {
     country: {
-      type: String,
+      type: Object,
+      required: true
+    },
+    step: {
+      type: Object,
       required: false,
       default: undefined
     },
-    step: {
-      type: String,
-      required: false,
-      default: undefined
+    category: {
+      type: Object,
+      required: true
     }
   },
 
   computed: {
 
     categories() {
-      return this.thisCountry.categories.map(cat => this.$store.getters['steps/categories/itemById'](cat))
-    },
-
-    thisCountry () {
-      return this.$store.getters['countries/itemById'](this.country)
-    },
-
-    category () {
-      return this.$store.getters['steps/categories/itemBySlug'](this.$route.params.category)
-    },
-
-    thisStep () {
-      return this.$store.getters['steps/steps/itemBySlug'](this.$route.params.step)
+      return this.country.categories
     },
 
     phases () {
@@ -91,7 +82,7 @@ export default {
           steps = this.$store.getters['steps/steps/itemsByCategory'](this.category.id)
           startStep = steps.find(s => s.id === this.category.start)
           startMaxSteps = getMaxSteps(steps, startStep)
-          value = ((startMaxSteps - getMaxSteps(steps, this.thisStep)) / startMaxSteps) * 100
+          value = ((startMaxSteps - getMaxSteps(steps, this.step)) / startMaxSteps) * 100
           if(value < 5) {
             value = 5
           }

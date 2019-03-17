@@ -50,8 +50,9 @@
             md4 
             order-md1>
             <steps-progress 
-              :country="$route.params.country || undefined"
-              :step="$route.params.step || undefined"
+              :country="country"
+              :category="category"
+              :step="step || undefined"
             />
           </v-flex>
           <help-button />
@@ -78,9 +79,13 @@ export default {
   },
 
   computed: {
+    country () {
+      return this.$store.getters['countries/itemBySlug'](this.$route.params.country)
+    },
+
     step () {
       if(this.$route.params.step) {
-        return this.$store.getters['steps/steps/itemBySlug'](this.$route.params.step)
+        return this.$store.getters['steps/steps/itemByUrl'](this.$route.params)        
       }
       return {}
     },
@@ -99,7 +104,7 @@ export default {
 
     category () {
       if(this.$route.params.category) {
-        return this.$store.getters['steps/categories/itemBySlug'](this.$route.params.category)
+        return this.$store.getters['steps/categories/itemByUrl'](this.$route.params)
       }
       return {}
     },
