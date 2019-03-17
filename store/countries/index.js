@@ -1,6 +1,14 @@
-export const state = () => ({
-  countries: []
-})
+import { commonStore } from '~/helpers'
+
+export const state = commonStore.createState
+
+export const actions = {
+  ...commonStore.createActions({path: 'countries'})
+}
+
+export const mutations = {
+  ...commonStore.mutations
+}
 
 export const actions = {
   async fetchCountries({commit})  {
@@ -23,8 +31,5 @@ export const mutations = {
 }
 
 export const getters = {
-  countryById: s => id => {
-    return s.countries.find(c => c.id === id)
-  },
-  countries: s => s.countries
+  ...commonStore.getters
 }

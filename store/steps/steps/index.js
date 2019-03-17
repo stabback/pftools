@@ -1,38 +1,17 @@
-export const state = () => ({
-  steps: []
-})
+import { commonStore } from '~/helpers'
+
+export const state = commonStore.createState
 
 export const actions = {
-  async fetchSteps({commit})  {
-    const stepsRef = this.$fireDb.ref('steps/steps')
-    try {
-      const snapshot = await stepsRef.once('value')
-      const steps = snapshot.val()
-      commit('saveSteps', Object.values(steps))
-    } catch (e) {
-      alert("Having some tech difficulties, try reloading")
-      return
-    }
-  }
+  ...commonStore.createActions({path: 'steps/steps'})
 }
 
 export const mutations = {
-  saveSteps(s, payload) {
-    s.steps = payload
-  }
+  ...commonStore.mutations
 }
 
 export const getters = {
-  steps: s => s.steps,
-  stepById: s => id => {
-    return s.steps.find(step => step.id === id)
-  },
-
-  stepsByCategory: s => category =>  {
-    return s.steps.filter(step => step.category === category)
-  },
-
-  stepsByCountry: s => country =>  {
-    return s.steps.filter(step => step.country === country)
-  },
+  ...commonStore.getters,
+  itemsByCategory: (_, getters) => category => getters.itemsByKey('category', category),
+  itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug)
 }

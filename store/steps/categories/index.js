@@ -1,6 +1,14 @@
-export const state = () => ({
-  categories: []
-})
+import { commonStore } from '~/helpers'
+
+export const state = commonStore.createState
+
+export const actions = {
+  ...commonStore.createActions({path: 'steps/categories'})
+}
+
+export const mutations = {
+  ...commonStore.mutations
+}
 
 export const actions = {
   async fetchCategories({commit})  {
@@ -23,8 +31,6 @@ export const mutations = {
 }
 
 export const getters = {
-  categories: s => s.categories,
-  categoryById: s => id => {
-    return s.categories.find(c => c.id === id)
-  }
+  ...commonStore.getters,
+  itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug)
 }

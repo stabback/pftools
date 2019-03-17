@@ -11,9 +11,8 @@ import { getFileInfo, } from 'prettier';
             <h1 class="headline">{{ step.title }}</h1>
           </v-card-title>
 
-          <v-card-text>
-            {{ step.content }}
-          </v-card-text>
+          <v-card-text 
+            v-html="$md.render(step.content || '')" />
 
           <v-card-actions>
             <v-btn 
@@ -78,21 +77,28 @@ export default {
 
   computed: {
     step () {
-      return this.$store.getters['steps/steps/stepById'](this.$route.params.step)
+      return this.$store.getters['steps/steps/itemBySlug'](this.$route.params.step)
     },
 
     category () {
-      return this.$store.getters['steps/categories/categoryById'](this.$route.params.category)
+      return this.$store.getters['steps/categories/itemBySlug'](this.$route.params.category)
     },
 
     options () {
       if(!this.step.next) {
         return []
       }
-      return this.step.next.map(option => ({
-        ...option,
-        step: this.$store.getters['steps/steps/stepById'](option.id)
-      }))
+      let step
+      let category
+      return this.step.next.map(option => {
+        step = this.$store.getters['steps/steps/itemById'](option.id)
+        category = this.$store.getters['steps/categories/itemById'](step.category)
+        return {
+          ...option,
+          step,
+          category
+        }
+      })
     }
 
   },
@@ -103,8 +109,8 @@ export default {
         name: 'country-steps-category-step', 
         params: { 
           country: option.step.country,
-          category: option.step.category,
-          step: option.id
+          category: option.category.slug,
+          step: option.step.slug
         }
       }
     }

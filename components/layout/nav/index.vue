@@ -5,6 +5,13 @@
     class="elevation-1"
   >
     <v-toolbar-title>
+      <template v-if="$fireAuth.currentUser">
+        <nuxt-link 
+          :to="{name: 'admin' }" 
+          class="home-link"
+        >ADMIN</nuxt-link>
+        &nbsp;|&nbsp;
+      </template>
       <nuxt-link 
         :to="{name: 'index'}" 
         class="home-link"

@@ -43,6 +43,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/markdownit',
     ['@nuxtjs/google-analytics', {
       id: 'UA-131490787-1'
     }],
@@ -51,12 +52,12 @@ module.exports = {
       {
         config: {
           development: {
-            apiKey: "AIzaSyCyXMZSUYd9QgMEi_FWIs_APj4GbEDkbZ8",
-            authDomain: "stabback-pftools.firebaseapp.com",
-            databaseURL: "https://stabback-pftools.firebaseio.com",
-            projectId: "stabback-pftools",
-            storageBucket: "stabback-pftools.appspot.com",
-            messagingSenderId: "566846405350"
+            apiKey: "AIzaSyAJUCu5cc0jt9WYXL7hY9YwGs_BlzjYiI0",
+            authDomain: "stabback-pftools-dev.firebaseapp.com",
+            databaseURL: "https://stabback-pftools-dev.firebaseio.com",
+            projectId: "stabback-pftools-dev",
+            storageBucket: "stabback-pftools-dev.appspot.com",
+            messagingSenderId: "19478447333"
           },
           production: {
             apiKey: "AIzaSyCyXMZSUYd9QgMEi_FWIs_APj4GbEDkbZ8",
@@ -70,6 +71,10 @@ module.exports = {
       }
     ]
   ],
+
+  markdownit: {
+    injected: true
+  },
 
   /*
   ** Build configuration
