@@ -77,11 +77,12 @@ export default {
 
   computed: {
     step () {
-      return this.$store.getters['steps/steps/itemBySlug'](this.$route.params.step)
+      console.log(this.$store.getters['steps/steps/stepByUrl'](this.$route.params))
+      return this.$store.getters['steps/steps/stepByUrl'](this.$route.params)
     },
 
     category () {
-      return this.$store.getters['steps/categories/itemBySlug'](this.$route.params.category)
+      return this.$store.getters['steps/categories/categoryByUrl'](this.$route.params)
     },
 
     options () {

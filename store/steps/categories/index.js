@@ -12,5 +12,9 @@ export const mutations = {
 
 export const getters = {
   ...commonStore.getters,
-  itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug)
+  itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug),
+  categoryByUrl: (_, getters) => ({ country, category }) => {
+    console.log(getters.items)
+    return false
+  }
 }
