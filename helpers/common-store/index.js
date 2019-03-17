@@ -85,7 +85,7 @@ export default {
     },
   
     saveItems: (s, items) => {
-      s.items = items
+      s.items = items ? items : []
     },
 
     saveItem: (s, item) => {

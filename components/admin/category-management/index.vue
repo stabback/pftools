@@ -153,7 +153,7 @@ export default {
         slug: '',
         color: '',
         subtitle: '',
-        description: []
+        description: ''
       },
     }
   },
@@ -200,7 +200,7 @@ export default {
       this.updatedCategory.slug = ''
       this.color = '',
       this.subtitle = '',
-      this.description = []
+      this.description = ''
     },
 
     resetUpdatedCategory () {
@@ -236,8 +236,6 @@ export default {
         ...this.category,
         ...this.updatedCategory
       }
-
-      console.log("Updating with", item)
 
       if(this.newCategory) {
         await this.$store.dispatch('steps/categories/create', item)
