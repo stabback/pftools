@@ -1,4 +1,5 @@
 import { commonStore } from '~/helpers'
+import Step from '~/decorators/step'
 
 export const state = commonStore.createState
 
@@ -11,7 +12,7 @@ export const mutations = {
 }
 
 export const getters = {
-  ...commonStore.getters,
+  ...commonStore.createGetters({ Decorator: Step }),
   itemsByCategory: (_, getters) => category => getters.itemsByKey('category', category),
   itemsByCountry: (_, getters) => country => getters.itemsByKey('country', country),
   itemBySlug: (_, getters) => slug => getters.itemByKey('slug', slug),

@@ -50,12 +50,11 @@
 
 <script>
 export default {
-  asyncData({redirect, params, store}) {
-
-    const country = store.getters['countries/itemById'](params.country)
-
-    return {
-      country
+  computed: {
+    country () {
+      const country = this.$store.getters['countries/itemById'](this.$route.params.country)
+      console.log(country)
+      return country
     }
   }
 }

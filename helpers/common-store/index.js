@@ -103,13 +103,26 @@ export default {
     }
   },
 
-  getters: {
-    fetching: s => s.meta.fetching,
-    failed: s => s.meta.failed,
-    errors: s => s.meta.errors,
-    items: s => Object.values(s.items),
-    itemById: s => id => s.items[id],
-    itemsByKey: s => (key, value) => Object.values(s.items).filter(item => item[key] === value),
-    itemByKey: s => (key, value) => Object.values(s.items).find(item => item[key] === value)
+  createGetters({Decorator}) {
+    return {
+      fetching: (s, g) => s.meta.fetching,
+      failed: (s, g) => s.meta.failed,
+      errors: (s, g) => s.meta.errors,
+      rawItems: s => Object.values(s.items),
+      items: (s, _, __, rootGetters) => {
+        const countries = rootGetters['countries/rawItems']
+        const steps = rootGetters['steps/steps/rawItems']
+        const categories = rootGetters['steps/categories/rawItems']
+
+        const data = {
+          countries, steps, categories
+        }
+
+        return Object.values(s.items).map(item => new Decorator(item, data))
+      },
+      itemById: (_, g) => id => g.items.find(item => item.id === id),
+      itemsByKey: (_, g) => (key, value) => g.items.filter(item => item[key] === value),
+      itemByKey: (_, g) => (key, value) => g.items.find(item => item[key] === value)
+    }
   }
 }

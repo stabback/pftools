@@ -1,4 +1,3 @@
-import { getFileInfo, } from 'prettier';
 <template>
   <v-container
     grid-list-md
@@ -76,8 +75,8 @@ export default {
   transition: 'slide-left',
 
   computed: {
+
     step () {
-      console.log(this.$store.getters['steps/steps/stepByUrl'](this.$route.params))
       return this.$store.getters['steps/steps/stepByUrl'](this.$route.params)
     },
 

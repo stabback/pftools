@@ -1,4 +1,5 @@
 import { commonStore } from '~/helpers'
+import Country from '~/decorators/country'
 
 export const state = commonStore.createState
 
@@ -11,5 +12,5 @@ export const mutations = {
 }
 
 export const getters = {
-  ...commonStore.getters
+  ...commonStore.createGetters({ Decorator: Country })
 }
