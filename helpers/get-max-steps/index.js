@@ -1,6 +1,6 @@
 const getMaxSteps = (steps, step) => {
   let nextStep
-  if(step.next.length === 0) {
+  if(!step.next || step.next.length === 0) {
     return 0
   }
   let maxStepArr = step.next.map(nextStepId => {

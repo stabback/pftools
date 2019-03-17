@@ -52,7 +52,7 @@
 export default {
   asyncData({redirect, params, store}) {
 
-    const country = store.getters['countries/countryById'](params.country)
+    const country = store.getters['countries/itemById'](params.country)
 
     return {
       country

@@ -9,7 +9,7 @@
       <v-list-tile
         v-for="(category, index) in categories"
         :key="category.id"
-        :to="{ name: 'country-steps-category', params: { country, category: category.id }}"
+        :to="{ name: 'country-steps-category', params: { country, category: category.slug }}"
         :avatar="!!current"
         :disabled="current && current === category.id"
       >

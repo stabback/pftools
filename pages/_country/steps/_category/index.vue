@@ -42,31 +42,9 @@
               <h1 class="headline">Phase Details</h1>
             </div>
           </v-card-title>
-          <div 
-            v-for="descriptor in category.description" 
-            :key="JSON.stringify(descriptor.content)">
 
-            <v-card-text 
-              v-if="descriptor.type==='paragraph'" 
-              v-text="descriptor.content"/>
+          <v-card-text v-html="$md.render(category.description || '')"/>
 
-            <v-card-text 
-              v-if="descriptor.type==='unordered-list'" >
-              <p>{{ descriptor.content.introduction }}</p>
-              <ul>
-                <li 
-                  v-for="item in descriptor.content.items" 
-                  :key="item.content" 
-                  v-text="item.content"/>
-              </ul>
-            </v-card-text>
-
-            <v-card-title
-              v-if="descriptor.type==='heading-1'"
-              class="subheading"
-              v-text="descriptor.content"
-            />
-          </div>
           <v-card-actions>
             <v-btn
               :to="firstStepLink"
@@ -98,7 +76,7 @@ import Phases from '~/components/steps/phases'
 
 export default {
   
-  middleware: ['require-categories', 'verify-country',  'verify-category'],
+  middleware: ['require-categories-steps', 'verify-country',  'verify-category'],
 
   components: {
     Phases
@@ -106,15 +84,19 @@ export default {
 
   computed: {
     country () {
-      return this.$store.getters['countries/countryById'](this.$route.params.country)
+      return this.$store.getters['countries/itemById'](this.$route.params.country)
     },
 
     category () {
-      return this.$store.getters['steps/categories/categoryById'](this.$route.params.category)
+      return this.$store.getters['steps/categories/itemBySlug'](this.$route.params.category)
     },
 
     categories () {
-      return this.country.categories.map(category => this.$store.getters['steps/categories/categoryById'](category))
+      return this.country.categories.map(category => this.$store.getters['steps/categories/itemById'](category))
+    },
+
+    firstStep () {
+      return this.$store.getters['steps/steps/itemById'](this.category.start)
     },
 
     firstStepLink () {
@@ -122,8 +104,8 @@ export default {
         name: 'country-steps-category-step', 
         params: { 
           country: this.country.id, 
-          category: this.category.id, 
-          step: this.category.start
+          category: this.category.slug, 
+          step: this.firstStep.slug
         }
       }
     }

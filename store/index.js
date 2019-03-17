@@ -4,6 +4,6 @@ export const state = () => ({
 
 export const actions = {
   async nuxtClientInit ({dispatch}) {
-    await dispatch('countries/fetchCountries')
+    await dispatch('countries/fetchAll')
   }
 }

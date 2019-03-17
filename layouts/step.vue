@@ -25,7 +25,7 @@
                   <v-btn 
                     :to="{name: 'country-steps-category', params: {
                       country: $route.params.country,
-                      category: category.id
+                      category: category.slug
                     }}" 
                     :large="$vuetify.breakpoint.mdAndUp"
                     flat
@@ -80,13 +80,13 @@ export default {
   computed: {
     step () {
       if(this.$route.params.step) {
-        return this.$store.getters['steps/steps/stepById'](this.$route.params.step)
+        return this.$store.getters['steps/steps/itemBySlug'](this.$route.params.step)
       }
       return {}
     },
 
     firstStepInCategory () {
-      return this.$store.getters['steps/steps/stepById'](this.category.start)
+      return this.$store.getters['steps/steps/itemById'](this.category.start)
     },
 
     stepsInCategory () {
@@ -99,7 +99,7 @@ export default {
 
     category () {
       if(this.$route.params.category) {
-        return this.$store.getters['steps/categories/categoryById'](this.$route.params.category)
+        return this.$store.getters['steps/categories/itemBySlug'](this.$route.params.category)
       }
       return {}
     },
