@@ -51,7 +51,7 @@ module.exports = {
       'nuxt-fire',
       {
         config: {
-          development: {
+          production: {
             apiKey: "AIzaSyAJUCu5cc0jt9WYXL7hY9YwGs_BlzjYiI0",
             authDomain: "stabback-pftools-dev.firebaseapp.com",
             databaseURL: "https://stabback-pftools-dev.firebaseio.com",
@@ -59,7 +59,7 @@ module.exports = {
             storageBucket: "stabback-pftools-dev.appspot.com",
             messagingSenderId: "19478447333"
           },
-          production: {
+          development: {
             apiKey: "AIzaSyCyXMZSUYd9QgMEi_FWIs_APj4GbEDkbZ8",
             authDomain: "stabback-pftools.firebaseapp.com",
             databaseURL: "https://stabback-pftools.firebaseio.com",

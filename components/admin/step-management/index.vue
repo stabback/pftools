@@ -1,109 +1,147 @@
 <template>
-  <v-card>
+  <v-card color="#EEEEFF">
     <v-card-title primary-title>
       <h2 class="headline">Step management</h2>
+      <v-btn
+        @click="collapsed = !collapsed"
+      >{{ collapsed ? 'Expand' : 'Collapse' }}</v-btn>
     </v-card-title>
-    <v-card-text>
-      <v-select 
-        :value="value" 
-        :items="steps"
-        item-text="title"
-        item-value="id"
-        label="Edit Existing Step"
-        clearable
-        @input="selectExistingStep"
-      />
-      or
-      <v-btn @click="createStep">New Step</v-btn>
-    </v-card-text>
-    <template v-if="step || newStep">
-      <v-divider />
-      <v-form 
-        @submit.prevent="submit">
-        <v-card-title class="headline">
-          Meta
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-            v-model="updatedStep.id"
-            :background-color="fieldColor('id')"
-            required
-            label="ID"
-          />
-          <v-text-field
-            v-model="updatedStep.slug"
-            :background-color="fieldColor('slug')"
-            required
-            label="Slug"
-          />
-          <v-select 
-            v-model="updatedStep.country" 
-            :background-color="fieldColor('country')"
-            :items="countries"
-            label="Country"
-            item-text="name"
-            item-value="id"
-          />
-          <v-select 
-            v-model="updatedStep.category" 
-            :background-color="fieldColor('category')"
-            :items="categories"
-            label="Category"
-            item-text="name"
-            item-value="id"
-          />
-        </v-card-text>
+    <v-card-text 
+      v-if="collapsed" 
+      v-text="value" />
+    <div v-else>
+      <v-card-text>
+        <v-select 
+          :value="value" 
+          :items="steps"
+          item-text="title"
+          item-value="id"
+          label="Edit Existing Step"
+          clearable
+          @input="selectExistingStep"
+        />
+        or
+        <v-btn @click="createStep">New Step</v-btn>
+      </v-card-text>
+      <template v-if="step || newStep">
         <v-divider />
+        <v-form 
+          @submit.prevent="submit">
+          <v-card-title class="headline">
+            Meta
+          </v-card-title>
+          <v-card-text>
+            <v-text-field
+              v-model="updatedStep.id"
+              :background-color="fieldColor('id')"
+              required
+              label="ID"
+            />
+            <v-text-field
+              v-model="updatedStep.slug"
+              :background-color="fieldColor('slug')"
+              required
+              label="Slug"
+            />
+            <v-select 
+              v-model="updatedStep.country" 
+              :background-color="fieldColor('country')"
+              :items="countries"
+              label="Country"
+              item-text="name"
+              item-value="id"
+            />
+            <v-select 
+              v-model="updatedStep.category" 
+              :background-color="fieldColor('category')"
+              :items="categories"
+              label="Category"
+              item-text="name"
+              item-value="id"
+            />
+          </v-card-text>
+          <v-divider />
 
-        <v-card-title class="headline">
-          Content
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-            v-model="updatedStep.title"
-            :background-color="fieldColor('title')"
-            required
-            label="Title"
-          />
-          <v-textarea
-            v-model="updatedStep.content"
-            :background-color="fieldColor('content')"
-            required
-            label="Content"
-          />
-        </v-card-text>
-        <v-divider />
-        <v-card-title class="headline">
-          Preview
-        </v-card-title>
-        <v-card-text
-          class="preview" 
-          v-html="$md.render(updatedStep.content || '')" />
-        <v-divider />
-      
-        <v-divider />
-        <v-card-title class="headline">
-          Next step options
-        </v-card-title>
-        <v-card-text>
-          <draggable
-            v-model="updatedStep.next" 
-            :options="{group:'next'}" 
-          >
-            <v-flex
-              v-for="option in updatedStep.next" 
-              :key="option.id">
-              <v-card
-                :color="fieldColor('next')"
-              >
+          <v-card-title class="headline">
+            Content
+          </v-card-title>
+          <v-card-text>
+            <v-text-field
+              v-model="updatedStep.title"
+              :background-color="fieldColor('title')"
+              required
+              label="Title"
+            />
+            <v-textarea
+              v-model="updatedStep.content"
+              :background-color="fieldColor('content')"
+              required
+              label="Content"
+            />
+          </v-card-text>
+          <v-divider />
+          <v-card-title class="headline">
+            Preview
+          </v-card-title>
+          <v-card-text
+            class="preview" 
+            v-html="$md.render(updatedStep.content || '')" />
+          <v-divider />
+        
+          <v-divider />
+          <v-card-title class="headline">
+            Next step options
+          </v-card-title>
+          <v-card-text>
+            <draggable
+              v-model="updatedStep.next" 
+              :options="{group:'next'}" 
+            >
+              <v-flex
+                v-for="option in updatedStep.next" 
+                :key="option.id">
+                <v-card
+                  :color="fieldColor('next')"
+                >
+                  <v-card-text>
+                    <v-text-field
+                      v-model="option.prompt"
+                      required
+                      label="Prompt"
+                    />
+                    <v-select 
+                      v-model="option.id" 
+                      :items="allSteps"
+                      label="Step"
+                      item-text="name"
+                      item-value="id"
+                    />
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn 
+                      color="error" 
+                      flat 
+                      @click="removeOption(option.id)">Remove</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+            </draggable>
+          </v-card-text>
+          <v-card-text>
+            <v-flex>
+              <v-card>
+                <v-card-title 
+                  primary-title 
+                  class="headline">
+                  Add new option
+                </v-card-title>
                 <v-card-text>
                   <v-text-field
-                    v-model="option.prompt"
-                    required
+                    v-model="newNext.prompt"
                     label="Prompt"
                   />
                   <v-select 
-                    v-model="option.id" 
+                    v-model="newNext.id" 
                     :items="allSteps"
                     label="Step"
                     item-text="name"
@@ -112,84 +150,54 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-btn 
-                    color="error" 
+                    :disabled="!canAddOption"
                     flat 
-                    @click="removeOption(option.id)">Remove</v-btn>
+                    @click="addOption">Add</v-btn>
                 </v-card-actions>
               </v-card>
             </v-flex>
-          </draggable>
-        </v-card-text>
-        <v-card-text>
-          <v-flex>
-            <v-card>
-              <v-card-title 
-                primary-title 
-                class="headline">
-                Add new option
-              </v-card-title>
-              <v-card-text>
-                <v-text-field
-                  v-model="newNext.prompt"
-                  label="Prompt"
-                />
-                <v-select 
-                  v-model="newNext.id" 
-                  :items="allSteps"
-                  label="Step"
-                  item-text="name"
-                  item-value="id"
-                />
-              </v-card-text>
-              <v-card-actions>
-                <v-btn 
-                  :disabled="!canAddOption"
-                  flat 
-                  @click="addOption">Add</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-card-text>
-        <v-divider />
-        <v-card-actions>
-          <v-btn 
-            v-if="!newStep"
-            :disabled="!canSubmit"
-            type="submit"
-            flat
-            color="primary"
-          >Update</v-btn>
-          <v-btn 
-            v-if="newStep"
-            :disabled="!canSubmit"
-            type="submit"
-            flat
-            color="primary"
-          >Create</v-btn>
-          <v-btn 
-            flat
-            @click="resetUpdatedStep"
-          >Reset</v-btn>
-          <v-btn 
-            v-if="!newStep"
-            :to="{
-              name: 'country-steps-category-step',
-              params: {
-                country: country.slug,
-                category: category.slug,
-                step: step.slug
-              }
-            }"
-            flat
-            target="_blank">Link to step</v-btn>
-          <v-btn
-            v-if="!newStep"
-            flat
-            color="error"
-            @click="deleteStep">Delete step</v-btn>
-        </v-card-actions>
-      </v-form>  
-    </template>      
+          </v-card-text>
+          <v-divider />
+          <v-card-actions>
+            <v-btn 
+              v-if="!newStep"
+              :disabled="!canSubmit"
+              type="submit"
+              flat
+              color="primary"
+            >Update</v-btn>
+            <v-btn 
+              v-if="newStep"
+              :disabled="!canSubmit"
+              type="submit"
+              flat
+              color="primary"
+            >Create</v-btn>
+            <v-btn 
+              flat
+              @click="resetUpdatedStep"
+            >Reset</v-btn>
+            <v-btn 
+              v-if="!newStep"
+              :to="{
+                name: 'country-steps-category-step',
+                params: {
+                  country: country.slug,
+                  category: category.slug,
+                  step: step.slug
+                }
+              }"
+              flat
+              target="_blank">Link to step</v-btn>
+            <v-btn
+              v-if="!newStep"
+              flat
+              color="error"
+              @click="deleteStep">Delete step</v-btn>
+          </v-card-actions>
+        </v-form>  
+      </template> 
+    </div>     
   </v-card>
 </template>
 
@@ -222,6 +230,7 @@ export default {
 
   data () {
     return {
+      collapsed: false,
       newNext: {
         id: '',
         prompt: ''
@@ -249,9 +258,9 @@ export default {
     allSteps() {
       let category
       let name
-      return this.$store.getters['steps/steps/items'].map(step => {
+      return this.$store.getters['steps/steps/itemsByCountry'](this.country.id).map(step => {
         category = this.$store.getters['steps/categories/itemById'](step.category)
-        name = category.name + ' | ' + step.title
+        name = category.name + ' => ' + step.title
         return {
           ...step,
           name

@@ -1,126 +1,139 @@
 <template>
-  <v-card>
+  <v-card color="#EEFFEE">
     <v-card-title primary-title>
       <h2 class="headline">Category management</h2>
+      <v-btn
+        @click="collapsed = !collapsed"
+      >{{ collapsed ? 'Expand' : 'Collapse' }}</v-btn>
     </v-card-title>
-    <v-card-text>
-      <v-select 
-        :value="value" 
-        :items="categories"
-        item-text="name"
-        item-value="id"
-        label="Category"
-        clearable
-        @input="selectExistingCategory"
-      />
-      or
-      <v-btn @click="createCategory">New Category</v-btn>
-    </v-card-text>
-    <template v-if="category || newCategory">
-      <v-divider />
-      <v-form 
-        @submit.prevent="submit">
-        <v-card-title class="headline">
-          Meta
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-            v-model="updatedCategory.id"
-            :background-color="fieldColor('id')"
-            required
-            label="ID"
-          />
-          <v-text-field
-            v-model="updatedCategory.slug"
-            :background-color="fieldColor('slug')"
-            required
-            label="Slug"
-          />
-          <v-select 
-            v-model="updatedCategory.start" 
-            :background-color="fieldColor('start')"
-            :items="steps"
-            label="Starting Step"
-            item-text="title"
-            item-value="id"
-          />
-          <v-text-field
-            v-model="updatedCategory.color"
-            :background-color="fieldColor('color')"
-            :color="updatedCategory.color || '#000'"
-            required
-            label="Color"
-          />
-        </v-card-text>
-        <v-card-title class="headline">
-          Content
-        </v-card-title>
-        <v-card-text>
-          <v-text-field
-            v-model="updatedCategory.name"
-            :background-color="fieldColor('name')"
-            required
-            label="Name"
-          />
-          <v-text-field
-            v-model="updatedCategory.subtitle"
-            :background-color="fieldColor('subtitle')"
-            required
-            label="Subtitle"
-          />
-          <v-textarea
-            v-model="updatedCategory.description"
-            :background-color="fieldColor('description')"
-            required
-            label="Description"
-          />
-        </v-card-text>
+    <v-card-text 
+      v-if="collapsed" 
+      v-text="value" />
+    <div v-else>
+      <v-card-text>
+        <v-select 
+          :value="value" 
+          :items="categories"
+          item-text="title"
+          item-value="id"
+          label="Category"
+          clearable
+          @input="selectExistingCategory"
+        />
+        or
+        <v-btn @click="createCategory">New Category</v-btn>
+      </v-card-text>
+      <template v-if="category || newCategory">
         <v-divider />
-        <v-card-title class="headline">
-          Preview
-        </v-card-title>
-        <v-card-text
-          class="preview" 
-          v-html="$md.render(updatedCategory.description || '')" />
-        <v-divider />
-        <v-card-actions>
-          <v-btn 
-            v-if="!newCategory"
-            :disabled="!canSubmit"
-            type="submit"
-            flat
-            color="primary"
-          >Update</v-btn>
-          <v-btn 
-            v-if="newCategory"
-            :disabled="!canSubmit"
-            type="submit"
-            flat
-            color="primary"
-          >Create</v-btn>
-          <v-btn 
-            flat
-            @click="resetUpdatedCategory"
-          >Reset</v-btn>
-          <v-btn 
-            v-if="!newCategory"
-            :to="{
-              name: 'country-steps-category',
-              params: {
-                country: country.slug,
-                category: category.slug
-              }
-            }"
-            flat
-            target="_blank">Link to category</v-btn>
-          <v-btn
-            v-if="!newCategory"
-            flat
-            color="error"
-            @click="deleteCategory">Delete category</v-btn>
-        </v-card-actions>
-      </v-form>        
-    </template>
+        <v-form 
+          @submit.prevent="submit">
+          <v-card-title class="headline">
+            Meta
+          </v-card-title>
+          <v-card-text>
+            <v-text-field
+              v-model="updatedCategory.id"
+              :background-color="fieldColor('id')"
+              required
+              label="ID"
+            />
+            <v-text-field
+              v-model="updatedCategory.slug"
+              :background-color="fieldColor('slug')"
+              required
+              label="Slug"
+            />
+            <v-select 
+              v-model="updatedCategory.start" 
+              :background-color="fieldColor('start')"
+              :items="steps"
+              label="Starting Step"
+              item-text="title"
+              item-value="id"
+            />
+            <v-text-field
+              v-model="updatedCategory.color"
+              :background-color="fieldColor('color')"
+              :color="updatedCategory.color || '#000'"
+              required
+              label="Color"
+            />
+          </v-card-text>
+          <v-card-title class="headline">
+            Content
+          </v-card-title>
+          <v-card-text>
+            <v-text-field
+              v-model="updatedCategory.name"
+              :background-color="fieldColor('name')"
+              required
+              label="Name"
+            />
+            <v-text-field
+              v-model="updatedCategory.subtitle"
+              :background-color="fieldColor('subtitle')"
+              required
+              label="Subtitle"
+            />
+            <v-textarea
+              v-model="updatedCategory.description"
+              :background-color="fieldColor('description')"
+              required
+              label="Description"
+            />
+          </v-card-text>
+          <v-divider />
+          <v-card-title class="headline">
+            Preview
+          </v-card-title>
+          <v-card-text
+            class="preview" 
+            v-html="$md.render(updatedCategory.description || '')" />
+          <v-divider />
+          <v-card-actions>
+            <v-btn 
+              v-if="!newCategory"
+              :disabled="!canSubmit"
+              type="submit"
+              flat
+              color="primary"
+            >Update</v-btn>
+            <v-btn 
+              v-if="newCategory"
+              :disabled="!canSubmit"
+              type="submit"
+              flat
+              color="primary"
+            >Create</v-btn>
+            <v-btn 
+              flat
+              @click="resetUpdatedCategory"
+            >Reset</v-btn>
+            <v-btn 
+              v-if="!newCategory"
+              :to="{
+                name: 'country-steps-category',
+                params: {
+                  country: country.slug,
+                  category: category.slug
+                }
+              }"
+              flat
+              target="_blank">Link to category</v-btn>
+            <v-btn
+              v-if="!newCategory"
+              flat
+              color="error"
+              @click="deleteCategory">Delete category</v-btn>
+            <v-btn
+              flat
+              @click="collapsed = true"
+              v-text="'Collapse'"
+            />
+          </v-card-actions>
+        </v-form>        
+      </template>
+    </div>
   </v-card>
 </template>
 
@@ -146,6 +159,7 @@ export default {
   data () {
     return {
       newCategory: false,
+      collapsed: true,
       updatedCategory: {
         id: '',
         name: '',
@@ -160,7 +174,13 @@ export default {
 
   computed: {
     categories() {
-      return this.$store.getters['steps/categories/items']
+      const allCategories = this.$store.getters['steps/categories/items']
+      return allCategories
+        .filter(cat => this.country.categories.includes(cat.id))
+        .map(cat => ({
+          ...cat,
+          title: cat.name + ' [' + cat.id + ']'
+        }))
     },
     category() {
       return this.$store.getters['steps/categories/itemById'](this.value)
@@ -171,7 +191,10 @@ export default {
       )
     },
     steps() {
-      return this.$store.getters['steps/steps/items']
+      return this.$store.getters['steps/steps/items'].map(step => ({
+        ...step,
+        title: step.title + ' [' + step.id + ']'
+      }))
     }
   },
 
