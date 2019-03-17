@@ -47,7 +47,7 @@
           <v-text-field
             v-model="updatedCategory.color"
             :background-color="fieldColor('color')"
-            :color="updatedCategory.color"
+            :color="updatedCategory.color || '#000'"
             required
             label="Color"
           />
