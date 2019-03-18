@@ -98,7 +98,7 @@
 export default {
   computed: {
     country () {
-      return this.$store.getters['countries/itemBySlug'](this.$route.params.country)
+      return this.$store.getters['countries/itemBySlug'](this.$route.params.country) || {}
     },
 
     countries () {

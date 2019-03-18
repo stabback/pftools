@@ -1,5 +1,5 @@
 import { commonStore } from '~/helpers'
-import Category from '~/decorators/country'
+import Category from '~/decorators/category'
 
 export const state = commonStore.createState
 

@@ -22,6 +22,14 @@ class Country {
     return this._obj.start
   }
 
+  get asName () {
+    return `${this.name} [${this.id}]`
+  }
+
+  get raw () {
+    return this._obj
+  }
+
   get categories () {
     return this._obj.categories.map(catId => {
       const category = this._categories.find(c => c.id === catId)

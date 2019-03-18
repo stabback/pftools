@@ -10,25 +10,18 @@
       />
       
     </v-flex>
-    <template v-if="loading">
-      <v-flex>
-        Loading...
-      </v-flex>
-    </template> 
-    <template v-else>
-      <v-flex v-if="country">
-        <category-management 
-          v-model="selectedCategory" 
-          :country="country" />
-      </v-flex>
-      <v-flex v-if="category">
-        <step-management
-          v-model="selectedStep"
-          :country="country"
-          :category="category"
-        />
-      </v-flex>
-    </template>
+    <v-flex v-if="country">
+      <category-management 
+        v-model="selectedCategory" 
+        :country="country" />
+    </v-flex>
+    <v-flex v-if="category">
+      <step-management
+        v-model="selectedStep"
+        :country="country"
+        :category="category"
+      />
+    </v-flex>
   </v-layout>
 </template>
 
@@ -38,6 +31,13 @@ import CategoryManagement from '~/components/admin/category-management'
 import StepManagement from '~/components/admin/step-management'
 
 export default {
+  async fetch ({ store }) {
+    await Promise.all([
+      store.dispatch('steps/categories/fetchAll'),
+      store.dispatch('steps/steps/fetchAll')
+    ])
+  },
+
   components: {
     CountryManagement,
     CategoryManagement,
@@ -50,8 +50,7 @@ export default {
     return {
       selectedCountry: 'canada',
       selectedCategory: null,
-      selectedStep: null,
-      loading: true
+      selectedStep: null
     }
   },
 
@@ -61,27 +60,6 @@ export default {
     },
     category() {
       return this.$store.getters['steps/categories/itemById'](this.selectedCategory)
-    }
-  },
-
-  mounted () {
-    this.fetchData()
-  },
-
-  methods: {
-    async fetchData() {
-      this.loading = true
-
-      const search = {
-        key: 'country',
-        value: this.selectedCountry
-      }
-
-      await Promise.all([
-        this.$store.dispatch('steps/categories/fetchAll'),
-        this.$store.dispatch('steps/steps/fetchByKey', search)
-      ])
-      this.loading = false
     }
   },
 

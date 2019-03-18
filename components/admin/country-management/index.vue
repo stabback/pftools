@@ -35,14 +35,14 @@
               v-model="updatedCountry.id"
               :background-color="fieldColor('id')"
               required
-              label="ID (doubles as slug)"
+              label="ID"
             />
             <v-select 
               v-model="updatedCountry.start" 
               :background-color="fieldColor('start')"
               :items="steps"
               label="Starting Step"
-              item-text="name"
+              item-text="asccName"
               item-value="id"
             />
           </v-card-text>
@@ -74,12 +74,7 @@
                       row 
                       align-center>
                       <v-flex grow>
-                        <template v-if="categories.find(c => c.id === category)">
-                          {{ categories.find(c => c.id === category).title }}
-                        </template>
-                        <template v-else>
-                          ERROR - category does not exist [{{ category }}]
-                        </template>
+                        {{ categories.find(c => c.id === category).name }}
                       </v-flex>
                       <v-flex shrink>                
                         <v-btn 
@@ -99,14 +94,14 @@
                 <v-card-title 
                   primary-title 
                   class="headline">
-                  Add new category
+                  Add category to country
                 </v-card-title>
                 <v-card-text>
                   <v-select 
                     v-model="newCategory" 
                     :items="categories"
                     label="Category"
-                    item-text="title"
+                    item-text="asName"
                     item-value="id"
                   />
                 </v-card-text>
@@ -200,12 +195,7 @@ export default {
 
   computed: {
     categories() {
-      return this.$store.getters['steps/categories/items'].map(category => {
-        return {
-          ...category,
-          title: category.name + ' [' + category.id + ']'
-        }
-      })
+      return this.$store.getters['steps/categories/items']
     },
     countries() {
       return this.$store.getters['countries/items']
@@ -221,18 +211,14 @@ export default {
     steps() {
       let category
       let name
-      return this.$store.getters['steps/steps/items'].map(step => {
-        category = this.$store.getters['steps/categories/itemById'](step.category)
-        name = category.name + ' | ' + step.title + ' [' + step.id + ']'
-        return {
-          ...step,
-          name
-        }
-      }).sort(function(a, b){
-        if(a.name < b.name) { return -1; }
-        if(a.name > b.name) { return 1; }
+      const steps = this.$store.getters['steps/steps/items']
+      const sorted = steps.sort(function(a, b){
+        if(a.ascName < b.ascName) { return -1; }
+        if(a.ascName > b.ascName) { return 1; }
         return 0;
       })
+
+      return steps
     },
 
     canAddCategory () {
@@ -278,7 +264,7 @@ export default {
     },
 
     resetUpdatedCountry() {
-      this.updatedCountry = clone(this.country)
+      this.updatedCountry = clone(this.country.raw)
     },
 
     addCategory() {
@@ -287,7 +273,17 @@ export default {
     },
 
     fieldColor(key) {
-      return (!this.country || this.newCountry || (isEqual(this.updatedCountry[key], this.country[key]))) ? undefined : 'warning'
+      if(!this.country || this.newCountry) {
+        return undefined
+      }
+
+      if(key === 'categories') {
+        if(isEqual(this.updatedCountry[key], this.country[key].map(c => c.id))) {
+          return undefined
+        }
+        return 'warning'
+      }
+      return (isEqual(this.updatedCountry[key], this.country[key])) ? undefined : 'warning'
     },
 
     updateValue () {

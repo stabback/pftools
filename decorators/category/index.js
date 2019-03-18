@@ -11,6 +11,10 @@ class Category {
     return this._obj.name
   }
 
+  get asName () {
+    return `${this.name} [${this.id}]`
+  }
+
   get slug () {
     return this._obj.slug
   }

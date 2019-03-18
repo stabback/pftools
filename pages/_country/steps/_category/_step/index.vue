@@ -2,8 +2,20 @@
   <v-container
     grid-list-md
     class="wrap">
+    <v-layout 
+      row
+      class="title-row"
+    >
+      <v-flex grow>
+        <h2 class="title font-weight-light">This step</h2>
+      </v-flex>
+      <v-flex shrink>
+        <v-btn 
+          @click="$router.back()"
+        >Back</v-btn>
+      </v-flex>
+    </v-layout>
     <v-layout column>
-      <h2 class="title font-weight-light ">This step</h2>
       <v-flex>
         <v-card>
           <v-card-title primary-title>
@@ -120,7 +132,13 @@ export default {
 .wrap
   padding: 0
 
-h2 {
+.title-row 
   padding: 25px 0 10px;
-}
+  .flex 
+    align-content: center
+    display: flex
+    align-items: center
+
+.container div.flex.additional-info
+  padding-top: 25px
 </style>

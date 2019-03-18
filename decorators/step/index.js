@@ -28,6 +28,18 @@ class Step {
     return this._obj.next
   }
 
+  get asName () {
+    return `${this.title} [${this.id}]`
+  }
+
+  get ascName () {
+    return `${this.category.name} - ${this.title} [${this.id}]`
+  }
+
+  get asccName () {
+    return `${this.country.name || '!UNASSIGNED!'} - ${this.category.name || `!UNASSIGNED!`} - ${this.title} [${this.id}]`
+  }
+
   get country () {
     const country = this._countries.find(country => country.id === this._obj.country)
     if(!country) {
