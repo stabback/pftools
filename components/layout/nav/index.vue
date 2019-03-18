@@ -30,30 +30,32 @@
       <v-toolbar-title 
         slot="activator" 
         @click="$ga.event('navigation', 'country', 'User is checking available countries')">
-        <v-avatar
-          :size="32" 
-        >
-          <v-img 
-            src="/flags/canada.png" 
-            alt="Flag of Canada"
-          />
-        </v-avatar>
-        <span>Canada</span>
+        <span>{{ country.name }}</span>
         <v-icon>arrow_drop_down</v-icon>
       </v-toolbar-title>
   
       <v-list>
-        <v-list-tile>
-          <v-list-tile-title>
-            More may come soon
-          </v-list-tile-title>
+        <v-list-tile 
+          v-for="ctry in countries"
+          :key="ctry.id"
+          :to="'/' + ctry.slug + '/steps'"
+          :disabled="ctry.slug === country.slug"
+          nuxt
+        >
+          <v-list-tile-action>
+            <v-icon 
+              v-if="ctry.slug === country.slug" 
+              color="primary"
+            >star</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ ctry.name }}</v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile>
-          <v-list-tile
-            href="mailto:pf@stabback.com?subject=Add%20a%20country"
-          >
-            Let me know your country
-          </v-list-tile>
+        <v-list-tile href="mailto:pf@stabback.com?subject=Add%20a%20country">
+          <v-list-tile-content>
+            <v-list-tile-title>Let me know your country</v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-menu>
@@ -94,7 +96,15 @@
 
 <script>
 export default {
+  computed: {
+    country () {
+      return this.$store.getters['countries/itemBySlug'](this.$route.params.country)
+    },
 
+    countries () {
+      return this.$store.getters['countries/items']
+    }
+  }
 }
 </script>
 
